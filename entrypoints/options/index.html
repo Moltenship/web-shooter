@@ -13,35 +13,27 @@
         <h1 data-i18n="optionsTitle"></h1>
       </header>
 
-      <section class="card" aria-labelledby="hotkey-title">
-        <h2 id="hotkey-title" data-i18n="optionsHotkey"></h2>
-        <div class="hotkey-row">
-          <span id="shortcut" class="keys keys-large"></span>
-          <div class="actions">
-            <button
-              id="change"
-              class="button"
-              type="button"
-              data-i18n="optionsChange"
-              hidden
-            ></button>
-            <button
-              id="record"
-              class="button"
-              type="button"
-              data-i18n="optionsRecord"
-              hidden
-            ></button>
-            <button
-              id="reset"
-              class="button ghost"
-              type="button"
-              data-i18n="optionsReset"
-              hidden
-            ></button>
+      <section class="card" aria-labelledby="hotkeys-title">
+        <h2 id="hotkeys-title" data-i18n="optionsHotkeys"></h2>
+        <div class="shortcut-list">
+          <div class="shortcut-row">
+            <span data-i18n="captureVisible"></span>
+            <span class="keys keys-large" data-shortcut="visible"></span>
+          </div>
+          <div class="shortcut-row">
+            <span data-i18n="captureFullPage"></span>
+            <span class="keys keys-large" data-shortcut="fullPage"></span>
           </div>
         </div>
-        <p class="hint" data-i18n="optionsHotkeyHint"></p>
+        <div class="card-footer">
+          <p class="hint" data-i18n="optionsHotkeyHint"></p>
+          <button id="change" class="button" type="button" data-i18n="optionsChange"></button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="full-page-title">
+        <h2 id="full-page-title" data-i18n="optionsFullPage"></h2>
+        <p class="hint" data-i18n="optionsFullPageHint"></p>
       </section>
 
       <section class="card" aria-labelledby="behavior-title">

@@ -2,7 +2,7 @@ import "@/assets/ui.css";
 import "./style.css";
 import { browser } from "wxt/browser";
 import type { WxtStorageItem } from "wxt/utils/storage";
-import { $, applyI18n, getShortcut, renderShortcut } from "@/utils/dom";
+import { $, applyI18n, renderShortcuts } from "@/utils/dom";
 import { t } from "@/utils/i18n";
 import { downscale, showToast } from "@/utils/settings";
 
@@ -11,12 +11,10 @@ document.title = t("optionsTitle");
 bindToggle($<HTMLInputElement>("#show-toast"), showToast);
 bindToggle($<HTMLInputElement>("#downscale"), downscale);
 
-const shortcutEl = $("#shortcut");
-const refreshShortcut = async () => renderShortcut(shortcutEl, await getShortcut());
-void refreshShortcut();
+void renderShortcuts();
 // Pick up changes made on the browser's shortcuts page when the user comes back.
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") void refreshShortcut();
+  if (document.visibilityState === "visible") void renderShortcuts();
 });
 
 // Chromium has no API to change a command's shortcut; only its own settings page can.

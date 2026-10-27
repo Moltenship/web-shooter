@@ -19,17 +19,11 @@
       }
     }
   },
-  "popupCapture": {
-    "message": "Copy screenshot"
-  },
   "popupCapturing": {
     "message": "Capturing…"
   },
   "popupCopied": {
     "message": "Copied to clipboard"
-  },
-  "popupShortcut": {
-    "message": "Hotkey"
   },
   "popupSettings": {
     "message": "Settings"
@@ -39,9 +33,6 @@
   },
   "optionsTitle": {
     "message": "Web Shooter settings"
-  },
-  "optionsHotkey": {
-    "message": "Hotkey"
   },
   "optionsHotkeyHint": {
     "message": "Chrome doesn't let extensions change their own shortcuts, so this opens the browser's shortcuts page. Keep the scope “In Chrome”: a global shortcut doesn't give the extension access to the page."
@@ -63,5 +54,26 @@
   },
   "optionsDownscaleHint": {
     "message": "On Retina and other high-density screens, save at CSS pixel size instead of 2× — smaller and easier to paste."
+  },
+  "commandFullPageDescription": {
+    "message": "Copy a screenshot of the whole page"
+  },
+  "toastCopiedFullPage": {
+    "message": "Whole page copied"
+  },
+  "captureVisible": {
+    "message": "Visible area"
+  },
+  "captureFullPage": {
+    "message": "Whole page"
+  },
+  "optionsHotkeys": {
+    "message": "Hotkeys"
+  },
+  "optionsFullPage": {
+    "message": "Whole-page screenshots"
+  },
+  "optionsFullPageHint": {
+    "message": "Chrome renders the page beyond the screen through its debugger, which is why the extension asks for debugger access. While capturing, Chrome briefly shows a “started debugging this browser” bar. Pages that scroll inside their own panel (Gmail, Notion) only capture what's visible; very tall pages are cut at 16,384 pixels."
   }
 }

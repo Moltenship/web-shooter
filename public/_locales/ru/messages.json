@@ -19,17 +19,11 @@
       }
     }
   },
-  "popupCapture": {
-    "message": "Скопировать скриншот"
-  },
   "popupCapturing": {
     "message": "Снимаю…"
   },
   "popupCopied": {
     "message": "Скопировано в буфер"
-  },
-  "popupShortcut": {
-    "message": "Хоткей"
   },
   "popupSettings": {
     "message": "Настройки"
@@ -39,9 +33,6 @@
   },
   "optionsTitle": {
     "message": "Настройки Web Shooter"
-  },
-  "optionsHotkey": {
-    "message": "Горячая клавиша"
   },
   "optionsHotkeyHint": {
     "message": "Chrome не даёт расширениям менять сочетания самим, поэтому откроется страница сочетаний браузера. Оставьте область «В Chrome»: глобальный хоткей не даёт расширению доступа к странице."
@@ -63,5 +54,26 @@
   },
   "optionsDownscaleHint": {
     "message": "На Retina и других экранах высокой плотности сохранять в размере CSS-пикселей, а не 2× — легче и удобнее вставлять."
+  },
+  "commandFullPageDescription": {
+    "message": "Скопировать скриншот всей страницы"
+  },
+  "toastCopiedFullPage": {
+    "message": "Вся страница скопирована"
+  },
+  "captureVisible": {
+    "message": "Видимая часть"
+  },
+  "captureFullPage": {
+    "message": "Вся страница"
+  },
+  "optionsHotkeys": {
+    "message": "Горячие клавиши"
+  },
+  "optionsFullPage": {
+    "message": "Скриншоты всей страницы"
+  },
+  "optionsFullPageHint": {
+    "message": "Chrome дорисовывает страницу за пределами экрана через отладчик, поэтому расширение просит доступ к нему. Во время снимка Chrome на секунду показывает плашку «начал отладку этого браузера». На страницах, которые прокручиваются внутри своей панели (Gmail, Notion), снимется только видимое, а очень длинные обрезаются на 16 384 пикселях."
   }
 }

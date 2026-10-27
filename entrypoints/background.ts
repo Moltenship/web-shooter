@@ -1,6 +1,6 @@
 import { browser, type Browser } from "wxt/browser";
 import { defineBackground } from "wxt/utils/define-background";
-import { captureVisibleTab } from "@/utils/capture";
+import { captureTab } from "@/utils/capture";
 import {
   copyImageInPage,
   removeToasts,
@@ -8,7 +8,7 @@ import {
   type CopyResult,
 } from "@/utils/copy-in-page";
 import { t } from "@/utils/i18n";
-import { COMMAND, type Message } from "@/utils/messages";
+import { commandMode, type CaptureMode, type Message } from "@/utils/messages";
 import { downscale, showToast } from "@/utils/settings";
 
 export default defineBackground({
@@ -25,9 +25,10 @@ export default defineBackground({
     let badgeTimer: ReturnType<typeof setTimeout> | undefined;
 
     browser.commands.onCommand.addListener((command, tab) => {
-      if (command !== COMMAND || busy) return;
+      const mode = commandMode(command);
+      if (!mode || busy) return;
       busy = true;
-      void shoot(tab).finally(() => (busy = false));
+      void shoot(tab, mode).finally(() => (busy = false));
     });
 
     browser.runtime.onMessage.addListener((message: Message, _sender, sendResponse) => {
@@ -36,7 +37,10 @@ export default defineBackground({
       pending = null;
     });
 
-    async function shoot(commandTab: Browser.tabs.Tab | undefined): Promise<void> {
+    async function shoot(
+      commandTab: Browser.tabs.Tab | undefined,
+      mode: CaptureMode,
+    ): Promise<void> {
       const tab =
         commandTab?.id !== undefined
           ? commandTab
@@ -56,18 +60,17 @@ export default defineBackground({
 
       let png: string;
       try {
-        png = await captureVisibleTab(tab.windowId, {
-          downscale: downscaleEnabled,
-          cssWidth: tab.width,
-        });
+        png = await captureTab({ ...tab, id: tab.id }, mode, downscaleEnabled);
       } catch (error) {
         // No activeTab grant (restricted page, or a Chrome "Global" shortcut, which
-        // doesn't grant it), or the 2-captures-per-second quota.
+        // doesn't grant it), the 2-captures-per-second quota, or (full page) another
+        // debugger already attached.
         console.warn("Capture failed:", error);
         return flashBadge("error", t("errorGeneric", errorMessage(error)));
       }
 
-      if (await copyInTab(tab.id, png, toastEnabled ? t("toastCopied") : null)) {
+      const toast = mode === "fullPage" ? t("toastCopiedFullPage") : t("toastCopied");
+      if (await copyInTab(tab.id, png, toastEnabled ? toast : null)) {
         if (toastEnabled) lastToast = { tabId: tab.id, at: Date.now() };
         return flashBadge("ok");
       }

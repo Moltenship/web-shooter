@@ -36,12 +36,27 @@
   }
 }
 
-.hotkey-row {
+.shortcut-list {
+  display: grid;
+  gap: 10px;
+}
+
+.shortcut-row {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  .button {
+    flex: none;
+  }
 }
 
 .keys-large kbd {

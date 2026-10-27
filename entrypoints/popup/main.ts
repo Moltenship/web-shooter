@@ -1,18 +1,22 @@
 import "@/assets/ui.css";
 import "./style.css";
 import { browser } from "wxt/browser";
-import { captureVisibleTab, writePngToClipboard } from "@/utils/capture";
-import { $, applyI18n, getShortcut, renderShortcut } from "@/utils/dom";
-import { t } from "@/utils/i18n";
-import type { Message } from "@/utils/messages";
+import { captureTab, writePngToClipboard } from "@/utils/capture";
+import { $, applyI18n, renderShortcuts } from "@/utils/dom";
+import { t, type MessageKey } from "@/utils/i18n";
+import type { CaptureMode, Message } from "@/utils/messages";
 import { downscale } from "@/utils/settings";
 
-const captureButton = $<HTMLButtonElement>("#capture");
-const captureLabel = $("#capture span");
+const LABELS: Record<CaptureMode, MessageKey> = {
+  visible: "captureVisible",
+  fullPage: "captureFullPage",
+};
+
+const buttons = [...document.querySelectorAll<HTMLButtonElement>("[data-mode]")];
 const status = $("#status");
 const preview = $<HTMLImageElement>("#preview");
 
-/** A screenshot whose clipboard write failed; the button retries it instead of re-capturing. */
+/** A screenshot whose clipboard write failed; the buttons retry it instead of re-capturing. */
 let retryImage: string | null = null;
 
 /**
@@ -22,15 +26,17 @@ let retryImage: string | null = null;
 const isFallbackWindow = new URLSearchParams(location.search).has("fallback");
 
 applyI18n();
+void renderShortcuts();
 $("#settings").addEventListener("click", () => {
   void browser.runtime.openOptionsPage();
   window.close();
 });
-captureButton.addEventListener("click", () => {
-  if (retryImage) void deliver(retryImage, isFallbackWindow);
-  else if (!isFallbackWindow) void captureAndCopy();
-});
-void getShortcut().then((shortcut) => renderShortcut($("#shortcut"), shortcut));
+for (const button of buttons) {
+  button.addEventListener("click", () => {
+    if (retryImage) void deliver(retryImage, isFallbackWindow);
+    else if (!isFallbackWindow) void captureAndCopy(button);
+  });
+}
 
 // Opened by the background because the page itself couldn't take the clipboard write.
 const pending: string | null = await browser.runtime.sendMessage({
@@ -39,22 +45,25 @@ const pending: string | null = await browser.runtime.sendMessage({
 if (pending) await deliver(pending, true);
 else if (isFallbackWindow) window.close();
 
-async function captureAndCopy(): Promise<void> {
-  setBusy(true);
+async function captureAndCopy(button: HTMLButtonElement): Promise<void> {
+  const mode = button.dataset.mode as CaptureMode;
+  setBusy(button, true);
   try {
     const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
-    if (!tab) return;
-    const png = await captureVisibleTab(tab.windowId, {
-      downscale: await downscale.getValue(),
-      cssWidth: tab.width,
-    }).catch((error: unknown) => {
-      console.warn("Capture failed:", error);
-      setStatus(t("errorGeneric", error instanceof Error ? error.message : String(error)), "error");
-      return null;
-    });
+    if (tab?.id === undefined) return;
+    const png = await captureTab({ ...tab, id: tab.id }, mode, await downscale.getValue()).catch(
+      (error: unknown) => {
+        console.warn("Capture failed:", error);
+        setStatus(
+          t("errorGeneric", error instanceof Error ? error.message : String(error)),
+          "error",
+        );
+        return null;
+      },
+    );
     if (png) await deliver(png, false);
   } finally {
-    setBusy(false);
+    setBusy(button, false);
   }
 }
 
@@ -69,15 +78,16 @@ async function deliver(png: string, closeWhenDone: boolean): Promise<void> {
     setStatus(t("popupCopied"), "ok");
     if (closeWhenDone) setTimeout(() => window.close(), 900);
   } catch (error) {
-    // Usually a focus problem; a click on the button gives the page focus and activation.
+    // Usually a focus problem; a click on a button gives the page focus and activation.
     retryImage = png;
     setStatus(t("errorGeneric", String(error)), "error");
   }
 }
 
-function setBusy(busy: boolean): void {
-  captureButton.disabled = busy;
-  captureLabel.textContent = t(busy ? "popupCapturing" : "popupCapture");
+function setBusy(active: HTMLButtonElement, busy: boolean): void {
+  for (const button of buttons) button.disabled = busy;
+  const label = active.querySelector("span")!;
+  label.textContent = t(busy ? "popupCapturing" : LABELS[active.dataset.mode as CaptureMode]);
 }
 
 function setStatus(text: string, kind: "ok" | "error"): void {

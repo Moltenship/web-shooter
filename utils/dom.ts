@@ -1,6 +1,6 @@
 import { browser } from "wxt/browser";
 import { t, type MessageKey } from "./i18n";
-import { COMMAND } from "./messages";
+import { COMMANDS, type CaptureMode } from "./messages";
 import { shortcutKeys } from "./shortcut";
 
 export function $<T extends HTMLElement = HTMLElement>(selector: string): T {
@@ -21,12 +21,16 @@ export function applyI18n(root: ParentNode = document): void {
   }
 }
 
-export async function getShortcut(): Promise<string> {
+/** Fills every `[data-shortcut="<mode>"]` element with that command's key caps. */
+export async function renderShortcuts(root: ParentNode = document): Promise<void> {
   const commands = await browser.commands.getAll();
-  return commands.find((command) => command.name === COMMAND)?.shortcut ?? "";
+  for (const el of root.querySelectorAll<HTMLElement>("[data-shortcut]")) {
+    const name = COMMANDS[el.dataset.shortcut as CaptureMode];
+    renderShortcut(el, commands.find((command) => command.name === name)?.shortcut ?? "");
+  }
 }
 
-export function renderShortcut(container: HTMLElement, shortcut: string): void {
+function renderShortcut(container: HTMLElement, shortcut: string): void {
   const keys = shortcutKeys(shortcut);
   if (keys.length === 0) {
     const empty = document.createElement("span");
