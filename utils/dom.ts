@@ -11,7 +11,6 @@ export function $<T extends HTMLElement = HTMLElement>(selector: string): T {
 
 /** Fills `data-i18n` (text) and `data-i18n-title` (tooltip) attributes. */
 export function applyI18n(root: ParentNode = document): void {
-  document.documentElement.lang = browser.i18n.getUILanguage();
   for (const el of root.querySelectorAll<HTMLElement>("[data-i18n]")) {
     el.textContent = t(el.dataset.i18n as MessageKey);
   }
