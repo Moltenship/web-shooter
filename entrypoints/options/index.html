@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Shooter</title>
+    <meta name="manifest.open_in_tab" content="true" />
+  </head>
+  <body>
+    <main class="options">
+      <header class="options-header">
+        <img src="/icons/48.png" width="40" height="40" alt="" />
+        <h1 data-i18n="optionsTitle"></h1>
+      </header>
+
+      <section class="card" aria-labelledby="hotkey-title">
+        <h2 id="hotkey-title" data-i18n="optionsHotkey"></h2>
+        <div class="hotkey-row">
+          <span id="shortcut" class="keys keys-large"></span>
+          <div class="actions">
+            <button
+              id="change"
+              class="button"
+              type="button"
+              data-i18n="optionsChange"
+              hidden
+            ></button>
+            <button
+              id="record"
+              class="button"
+              type="button"
+              data-i18n="optionsRecord"
+              hidden
+            ></button>
+            <button
+              id="reset"
+              class="button ghost"
+              type="button"
+              data-i18n="optionsReset"
+              hidden
+            ></button>
+          </div>
+        </div>
+        <p class="hint" data-i18n="optionsHotkeyHint"></p>
+      </section>
+
+      <section class="card" aria-labelledby="behavior-title">
+        <h2 id="behavior-title" data-i18n="optionsBehavior"></h2>
+        <label class="toggle">
+          <span class="toggle-text">
+            <strong data-i18n="optionsShowToast"></strong>
+            <small data-i18n="optionsShowToastHint"></small>
+          </span>
+          <input id="show-toast" type="checkbox" role="switch" />
+        </label>
+        <label class="toggle">
+          <span class="toggle-text">
+            <strong data-i18n="optionsDownscale"></strong>
+            <small data-i18n="optionsDownscaleHint"></small>
+          </span>
+          <input id="downscale" type="checkbox" role="switch" />
+        </label>
+      </section>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+{
+  "extName": {
+    "message": "Web Shooter"
+  },
+  "extDescription": {
+    "message": "Скриншот текущей вкладки прямо в буфер обмена по горячей клавише."
+  },
+  "commandDescription": {
+    "message": "Скопировать скриншот видимой части страницы"
+  },
+  "toastCopied": {
+    "message": "Скриншот скопирован"
+  },
+  "errorGeneric": {
+    "message": "Не удалось сделать скриншот: $1",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popupCapture": {
+    "message": "Скопировать скриншот"
+  },
+  "popupCapturing": {
+    "message": "Снимаю…"
+  },
+  "popupCopied": {
+    "message": "Скопировано в буфер"
+  },
+  "popupShortcut": {
+    "message": "Хоткей"
+  },
+  "popupSettings": {
+    "message": "Настройки"
+  },
+  "shortcutNotSet": {
+    "message": "не задан"
+  },
+  "optionsTitle": {
+    "message": "Настройки Web Shooter"
+  },
+  "optionsHotkey": {
+    "message": "Горячая клавиша"
+  },
+  "optionsHotkeyHint": {
+    "message": "Chrome не даёт расширениям менять сочетания самим, поэтому откроется страница сочетаний браузера. Оставьте область «В Chrome»: глобальный хоткей не даёт расширению доступа к странице."
+  },
+  "optionsChange": {
+    "message": "Изменить сочетание"
+  },
+  "optionsBehavior": {
+    "message": "Поведение"
+  },
+  "optionsShowToast": {
+    "message": "Показывать уведомление на странице"
+  },
+  "optionsShowToastHint": {
+    "message": "Небольшая плашка «Скриншот скопирован» после каждого снимка."
+  },
+  "optionsDownscale": {
+    "message": "Уменьшать HiDPI-скриншоты"
+  },
+  "optionsDownscaleHint": {
+    "message": "На Retina и других экранах высокой плотности сохранять в размере CSS-пикселей, а не 2× — легче и удобнее вставлять."
+  }
+}

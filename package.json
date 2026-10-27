@@ -1,0 +1,27 @@
+{
+  "name": "web-shooter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Screenshot the current tab to the clipboard with a configurable hotkey",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "prepare": "vp config && wxt prepare"
+  },
+  "devDependencies": {
+    "@wxt-dev/auto-icons": "^1.1.2",
+    "typescript": "^7.0.2",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "wxt": "^0.21.5"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.15.0",
+      "onFail": "download"
+    }
+  }
+}

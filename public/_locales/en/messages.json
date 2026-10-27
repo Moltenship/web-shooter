@@ -1,0 +1,67 @@
+{
+  "extName": {
+    "message": "Web Shooter"
+  },
+  "extDescription": {
+    "message": "Screenshot the current tab straight to the clipboard with a hotkey."
+  },
+  "commandDescription": {
+    "message": "Copy a screenshot of the visible page"
+  },
+  "toastCopied": {
+    "message": "Screenshot copied"
+  },
+  "errorGeneric": {
+    "message": "Screenshot failed: $1",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "popupCapture": {
+    "message": "Copy screenshot"
+  },
+  "popupCapturing": {
+    "message": "Capturing…"
+  },
+  "popupCopied": {
+    "message": "Copied to clipboard"
+  },
+  "popupShortcut": {
+    "message": "Hotkey"
+  },
+  "popupSettings": {
+    "message": "Settings"
+  },
+  "shortcutNotSet": {
+    "message": "not set"
+  },
+  "optionsTitle": {
+    "message": "Web Shooter settings"
+  },
+  "optionsHotkey": {
+    "message": "Hotkey"
+  },
+  "optionsHotkeyHint": {
+    "message": "Chrome doesn't let extensions change their own shortcuts, so this opens the browser's shortcuts page. Keep the scope “In Chrome”: a global shortcut doesn't give the extension access to the page."
+  },
+  "optionsChange": {
+    "message": "Change shortcut"
+  },
+  "optionsBehavior": {
+    "message": "Behavior"
+  },
+  "optionsShowToast": {
+    "message": "Show a notification on the page"
+  },
+  "optionsShowToastHint": {
+    "message": "A small “Screenshot copied” toast after each capture."
+  },
+  "optionsDownscale": {
+    "message": "Downscale HiDPI screenshots"
+  },
+  "optionsDownscaleHint": {
+    "message": "On Retina and other high-density screens, save at CSS pixel size instead of 2× — smaller and easier to paste."
+  }
+}
