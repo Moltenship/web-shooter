@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web Shooter store assets</title>
+    <!--
+      Chrome Web Store images. Every [data-out] element is saved at its exact size by
+      render.ts. Images in captures/ are real screenshots of the built extension.
+    -->
+    <style>
+      :root {
+        --violet: #7c5cff;
+        --blue: #3b82f6;
+        --night: #0d0b1a;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        display: grid;
+        gap: 40px;
+        padding: 40px;
+        background: #444;
+      }
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      .stage {
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+        background:
+          radial-gradient(900px 640px at 8% -12%, rgb(124 92 255 / 0.6), transparent 62%),
+          radial-gradient(900px 700px at 108% 112%, rgb(59 130 246 / 0.5), transparent 60%),
+          var(--night);
+      }
+      .stage::before {
+        /* Faint grid, fading out towards the edges. */
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px) 0 0 / 40px 40px,
+          linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px) 0 0 / 40px 40px;
+        mask: radial-gradient(ellipse at 40% 30%, #000 20%, transparent 75%);
+      }
+      .stage > * {
+        position: absolute;
+      }
+      .shot {
+        width: 1280px;
+        height: 800px;
+      }
+
+      .headline {
+        font-size: 58px;
+        line-height: 1.04;
+        font-weight: 750;
+        letter-spacing: -0.04em;
+      }
+      .headline em {
+        font-style: normal;
+        background: linear-gradient(90deg, #b9a8ff, #8fb8ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .sub {
+        margin-top: 20px;
+        font-size: 21px;
+        line-height: 1.45;
+        color: rgb(255 255 255 / 0.7);
+      }
+      .text {
+        left: 80px;
+        top: 0;
+        bottom: 0;
+        width: 430px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .text .keys {
+        margin-bottom: 30px;
+      }
+
+      .keys {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .key {
+        display: inline-grid;
+        place-items: center;
+        min-width: 66px;
+        height: 66px;
+        padding: 0 16px;
+        border-radius: 15px;
+        font-size: 30px;
+        font-weight: 600;
+        color: #221c3d;
+        background: linear-gradient(#ffffff, #e9e7f3);
+        box-shadow:
+          inset 0 -4px 0 #c8c3dc,
+          inset 0 1px 0 #fff,
+          0 14px 30px -10px rgb(0 0 0 / 0.6),
+          0 0 0 1px rgb(255 255 255 / 0.2);
+      }
+      .keys.mini .key {
+        min-width: 46px;
+        height: 46px;
+        padding: 0 12px;
+        border-radius: 11px;
+        font-size: 21px;
+      }
+      .keys.mini small {
+        font-size: 17px;
+      }
+      .keys small {
+        margin-left: 8px;
+        font-size: 15px;
+        line-height: 1.35;
+        color: rgb(255 255 255 / 0.55);
+      }
+
+      /* Browser window */
+      .browser {
+        overflow: hidden;
+        border-radius: 14px;
+        background: #fff;
+        box-shadow:
+          0 0 0 1px rgb(255 255 255 / 0.12),
+          0 40px 80px -20px rgb(0 0 0 / 0.7),
+          0 0 120px -20px rgb(124 92 255 / 0.45);
+      }
+      .browser.cut {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      .chrome-tabs {
+        display: flex;
+        align-items: end;
+        gap: 8px;
+        height: 42px;
+        padding: 0 12px;
+        background: #dfe3ea;
+      }
+      .lights {
+        display: flex;
+        gap: 8px;
+        align-self: center;
+        margin-right: 10px;
+      }
+      .lights i {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ff5f57;
+      }
+      .lights i:nth-child(2) {
+        background: #febc2e;
+      }
+      .lights i:nth-child(3) {
+        background: #28c840;
+      }
+      .tab {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 240px;
+        height: 34px;
+        padding: 0 12px;
+        border-radius: 10px 10px 0 0;
+        background: #fff;
+        font-size: 13px;
+        color: #1f2329;
+        white-space: nowrap;
+      }
+      .tab span {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .tab b {
+        font-weight: 400;
+        color: #6b7280;
+      }
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        height: 44px;
+        padding: 0 14px;
+        border-bottom: 1px solid #e6e8ee;
+        color: #5f6368;
+      }
+      .omni {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        height: 32px;
+        padding: 0 14px;
+        border-radius: 16px;
+        background: #eef0f4;
+        font-size: 14px;
+        color: #1f2329;
+      }
+      .ext {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+      .ext.active {
+        background: #e3e6ed;
+      }
+      .viewport {
+        display: block;
+        width: 100%;
+      }
+
+      /* Shot 2: viewport → whole page */
+      .strip {
+        overflow: hidden;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow:
+          0 0 0 1px rgb(255 255 255 / 0.15),
+          0 30px 60px -20px rgb(0 0 0 / 0.7);
+      }
+      .strip img {
+        display: block;
+        width: 100%;
+      }
+      .strip .seen {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        border: 3px solid #a996ff;
+        border-radius: 10px 10px 4px 4px;
+        background: rgb(124 92 255 / 0.12);
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        background: rgb(255 255 255 / 0.1);
+        box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18);
+        backdrop-filter: blur(8px);
+        white-space: nowrap;
+      }
+      .connectors {
+        inset: 0;
+        pointer-events: none;
+      }
+
+      /* Shot 3: popup */
+      .popup-card {
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow:
+          0 0 0 1px rgb(0 0 0 / 0.08),
+          0 24px 60px -10px rgb(0 0 0 / 0.55);
+      }
+      .popup-card img {
+        display: block;
+        width: 100%;
+      }
+      .shade {
+        position: absolute;
+        inset: 86px 0 0;
+        background: rgb(13 11 26 / 0.18);
+      }
+
+      /* Shot 4: chat app */
+      .app-window {
+        display: grid;
+        grid-template-columns: 210px 1fr;
+        grid-template-rows: 40px 1fr;
+        overflow: hidden;
+        border-radius: 14px;
+        background: #fff;
+        color: #1d1c22;
+        box-shadow:
+          0 0 0 1px rgb(255 255 255 / 0.12),
+          0 40px 80px -20px rgb(0 0 0 / 0.7),
+          0 0 120px -20px rgb(59 130 246 / 0.4);
+      }
+      .app-title {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+        background: #ecebf1;
+        border-bottom: 1px solid #e1e0e8;
+      }
+      .side {
+        padding: 18px 12px;
+        background: #f6f5f9;
+        border-right: 1px solid #e8e7ee;
+        font-size: 14px;
+        color: #5e5b6d;
+      }
+      .side h3 {
+        margin: 0 8px 16px;
+        font-size: 16px;
+        color: #1d1c22;
+      }
+      .side small {
+        display: block;
+        margin: 18px 8px 6px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #9693a6;
+      }
+      .side div {
+        padding: 5px 8px;
+        border-radius: 7px;
+      }
+      .side .on {
+        color: #fff;
+        background: #6d5cff;
+      }
+      .chat {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+      .chat-head {
+        padding: 14px 22px;
+        border-bottom: 1px solid #ecebf1;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .chat-head span {
+        font-weight: 400;
+        font-size: 13px;
+        color: #8a879a;
+        margin-left: 8px;
+      }
+      .messages {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        gap: 16px;
+        padding: 18px 22px;
+        overflow: hidden;
+      }
+      .msg {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+        font-size: 15px;
+        line-height: 1.45;
+      }
+      .avatar {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .msg b {
+        margin-right: 8px;
+      }
+      .msg time {
+        font-size: 12px;
+        color: #9693a6;
+      }
+      .attachment {
+        display: block;
+        width: 330px;
+        margin-top: 8px;
+        border-radius: 10px;
+        border: 1px solid #e3e2ea;
+      }
+      .reactions {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .reactions span {
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-size: 13px;
+        background: #f0eefc;
+        box-shadow: inset 0 0 0 1px #d9d3ff;
+      }
+      .composer {
+        margin: 0 22px 20px;
+        padding: 12px;
+        border: 1.5px solid #6d5cff;
+        border-radius: 12px;
+        box-shadow: 0 0 0 4px rgb(109 92 255 / 0.12);
+      }
+      .pasted {
+        position: relative;
+        display: inline-block;
+      }
+      .pasted img {
+        display: block;
+        width: 132px;
+        height: 82px;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 8px;
+        border: 1px solid #e3e2ea;
+      }
+      .composer p {
+        margin-top: 10px;
+        font-size: 15px;
+        color: #1d1c22;
+      }
+      .caret {
+        display: inline-block;
+        width: 2px;
+        height: 18px;
+        margin-left: 1px;
+        vertical-align: -3px;
+        background: #6d5cff;
+      }
+
+      /* Shot 5: settings */
+      .options-window .viewport {
+        background: #f6f6f8;
+      }
+
+      /* Promo tiles */
+      .tile-small {
+        width: 440px;
+        height: 280px;
+      }
+      .marquee {
+        width: 1400px;
+        height: 560px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .brand h1 {
+        font-size: 38px;
+        font-weight: 750;
+        letter-spacing: -0.035em;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. Hero -->
+    <section class="stage shot" data-out="screenshots/1-hotkey.png">
+      <div
+        style="
+          left: 90px;
+          top: 50px;
+          right: 90px;
+          display: flex;
+          align-items: end;
+          justify-content: space-between;
+        "
+      >
+        <h1 class="headline">Screenshot to clipboard.<br /><em>One keystroke.</em></h1>
+        <div class="keys" style="flex-direction: column; align-items: end; gap: 14px">
+          <div class="keys">
+            <span class="key">⌥</span><span class="key">⇧</span><span class="key">S</span>
+          </div>
+          <small>Alt + Shift + S on Windows and Linux</small>
+        </div>
+      </div>
+      <div
+        data-browser="landing-toast"
+        data-url="tidewater.app"
+        data-active-ext
+        style="left: 90px; top: 196px; width: 1100px"
+      ></div>
+    </section>
+
+    <!-- 2. Whole page -->
+    <section class="stage shot" data-out="screenshots/2-whole-page.png">
+      <div class="text">
+        <div class="keys">
+          <span class="key">⌥</span><span class="key">⇧</span><span class="key">F</span>
+        </div>
+        <h2 class="headline">The whole page, <em>top to bottom.</em></h2>
+        <p class="sub">
+          A second hotkey captures everything past the fold, from the header to the footer, in one
+          image.
+        </p>
+      </div>
+      <div
+        data-browser="landing-wide-toast"
+        data-url="tidewater.app"
+        id="small-browser"
+        style="left: 520px; top: 214px; width: 440px"
+      ></div>
+      <div class="strip" id="strip" style="left: 1010px; top: 36px; width: 200px">
+        <img src="captures/landing-full.png" alt="" />
+        <div class="seen" id="seen"></div>
+      </div>
+      <svg class="connectors" id="connectors" width="1280" height="800"></svg>
+    </section>
+
+    <!-- 3. Popup -->
+    <section class="stage shot" data-out="screenshots/3-popup.png">
+      <div class="text">
+        <h2 class="headline">No hotkey?<br /><em>One click.</em></h2>
+        <p class="sub">
+          Pick the visible area or the whole page. The popup shows exactly what landed on your
+          clipboard.
+        </p>
+      </div>
+      <div
+        data-browser="landing"
+        data-url="tidewater.app/pricing"
+        data-active-ext
+        id="popup-browser"
+        style="left: 520px; top: 170px; width: 700px"
+      >
+        <div class="shade"></div>
+      </div>
+      <div class="popup-card" style="left: 832px; top: 260px; width: 330px">
+        <img src="captures/popup.png" alt="" />
+      </div>
+    </section>
+
+    <!-- 4. Paste anywhere -->
+    <section class="stage shot" data-out="screenshots/4-paste.png">
+      <div class="text">
+        <div class="keys"><span class="key">⌘</span><span class="key">V</span></div>
+        <h2 class="headline">Then just<br /><em>paste it.</em></h2>
+        <p class="sub">
+          Chats, docs, bug reports, design files. No files to dig out of Downloads, nothing to clean
+          up later.
+        </p>
+      </div>
+      <div class="app-window" style="left: 540px; top: 90px; width: 680px; height: 620px">
+        <div class="app-title">
+          <span class="lights"><i></i><i></i><i></i></span>
+        </div>
+        <aside class="side">
+          <h3>Tidewater</h3>
+          <div># general</div>
+          <div># design</div>
+          <div class="on"># launch</div>
+          <div># random</div>
+          <small>Direct messages</small>
+          <div>Maya Chen</div>
+          <div>Sam Ortiz</div>
+        </aside>
+        <div class="chat">
+          <div class="chat-head"># launch <span>Landing page v3 goes live Friday</span></div>
+          <div class="messages">
+            <div class="msg">
+              <span class="avatar" style="background: #e0795b">M</span>
+              <div>
+                <b>Maya Chen</b><time>10:42</time>
+                <div>Did the new hero ship? Can't check from my phone 🙏</div>
+              </div>
+            </div>
+            <div class="msg">
+              <span class="avatar" style="background: #6d5cff">A</span>
+              <div>
+                <b>Alex Rivera</b><time>10:43</time>
+                <div>Live now 👇</div>
+                <img class="attachment" src="captures/landing.png" alt="" />
+                <div class="reactions"><span>🔥 3</span><span>🙌 2</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="composer">
+            <span class="pasted"><img src="captures/landing-full.png" alt="" /></span>
+            <p>…and the whole page, pricing included<span class="caret"></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Settings -->
+    <section class="stage shot" data-out="screenshots/5-settings.png">
+      <div class="text">
+        <h2 class="headline">Your keys,<br /><em>your rules.</em></h2>
+        <p class="sub">
+          Set any shortcut you like, hide the on-page toast, or keep Retina screenshots at their
+          normal size.
+        </p>
+      </div>
+      <div
+        data-browser="options-dark"
+        data-url="Web Shooter settings"
+        data-dark
+        class="cut"
+        style="left: 790px; top: 50px; width: 600px"
+      ></div>
+      <div
+        data-browser="options"
+        data-url="Web Shooter settings"
+        class="cut"
+        style="left: 540px; top: 140px; width: 600px"
+      ></div>
+    </section>
+
+    <!-- Small promo tile -->
+    <section class="stage tile-small" data-out="promo/small-440x280.png">
+      <div style="left: 36px; top: 36px; right: 36px">
+        <div class="brand">
+          <img src="../../assets/icon.svg" width="58" height="58" alt="" />
+          <h1 style="font-size: 34px">Web Shooter</h1>
+        </div>
+        <p class="sub" style="margin-top: 18px; font-size: 19px; color: rgb(255 255 255 / 0.8)">
+          Screenshots straight to your clipboard.
+        </p>
+        <div class="keys" style="margin-top: 26px; gap: 8px">
+          <span
+            class="key"
+            style="min-width: 46px; height: 46px; font-size: 21px; border-radius: 11px"
+            >⌥</span
+          >
+          <span
+            class="key"
+            style="min-width: 46px; height: 46px; font-size: 21px; border-radius: 11px"
+            >⇧</span
+          >
+          <span
+            class="key"
+            style="min-width: 46px; height: 46px; font-size: 21px; border-radius: 11px"
+            >S</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee promo tile -->
+    <section class="stage marquee" data-out="promo/marquee-1400x560.png">
+      <div
+        style="
+          left: 90px;
+          top: 0;
+          bottom: 0;
+          width: 580px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        "
+      >
+        <div class="brand">
+          <img src="../../assets/icon.svg" width="64" height="64" alt="" />
+          <h1>Web Shooter</h1>
+        </div>
+        <h2 class="headline" style="margin-top: 28px; font-size: 46px">
+          Screenshot to clipboard.<br /><em>One keystroke.</em>
+        </h2>
+        <div class="keys mini" style="margin-top: 30px">
+          <span class="key">⌥</span><span class="key">⇧</span><span class="key">S</span>
+          <small>visible area</small>
+        </div>
+        <div class="keys mini" style="margin-top: 12px">
+          <span class="key">⌥</span><span class="key">⇧</span><span class="key">F</span>
+          <small>whole page</small>
+        </div>
+      </div>
+      <div
+        data-browser="landing-toast"
+        data-url="tidewater.app"
+        data-active-ext
+        style="left: 680px; top: 60px; width: 820px"
+      ></div>
+    </section>
+
+    <script type="module">
+      const ICON = "../../assets/icon.svg";
+      const FAVICON = `<svg width="16" height="16" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#0e7c86"/><path d="M5 19c3 0 3-3 5.5-3s2.5 3 5.5 3 3-3 5.5-3 2.5 3 5.5 3M5 13c3 0 3-3 5.5-3s2.5 3 5.5 3 3-3 5.5-3 2.5 3 5.5 3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>`;
+      const LOGO = `<img src="${ICON}" width="16" height="16" alt="">`;
+      const svg = (d) =>
+        `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+      const BACK = svg('<path d="M19 12H5M12 19l-7-7 7-7"/>');
+      const FORWARD = svg('<path d="M5 12h14M12 5l7 7-7 7"/>');
+      const RELOAD = svg('<path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/>');
+      const LOCK = svg(
+        '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+      );
+      const PUZZLE = svg(
+        '<path d="M19.4 12.6a2 2 0 1 0 0-3.2V6a1 1 0 0 0-1-1h-3.4a2 2 0 1 0-3.2 0H8.4a1 1 0 0 0-1 1v3.4a2 2 0 1 0 0 3.2V16a1 1 0 0 0 1 1h3.4a2 2 0 1 1 3.2 0h3.4a1 1 0 0 0 1-1z"/>',
+      );
+
+      for (const el of document.querySelectorAll("[data-browser]")) {
+        const page = el.dataset.browser;
+        const isExtensionPage = page.startsWith("options");
+        el.classList.add("browser");
+        el.insertAdjacentHTML(
+          "afterbegin",
+          `<div class="chrome-tabs"><span class="lights"><i></i><i></i><i></i></span>
+             <div class="tab">${isExtensionPage ? LOGO : FAVICON}<span>${isExtensionPage ? "Web Shooter" : "Tidewater — Coastal forecasts"}</span><b>✕</b></div></div>
+           <div class="toolbar">${BACK}${FORWARD}${RELOAD}
+             <div class="omni">${isExtensionPage ? "" : LOCK}${el.dataset.url}</div>
+             <span class="ext ${"activeExt" in el.dataset ? "active" : ""}">${LOGO}</span>${PUZZLE}</div>
+           <img class="viewport" src="captures/${page}.png" alt="">`,
+        );
+        if ("dark" in el.dataset) {
+          el.querySelector(".chrome-tabs").style.background = "#2b2d33";
+          el.querySelector(".tab").style.cssText += "background:#3a3c42;color:#e8eaed";
+          el.querySelector(".toolbar").style.cssText +=
+            "background:#3a3c42;color:#c4c7cc;border-color:#2b2d33";
+          el.querySelector(".omni").style.cssText += "background:#202124;color:#e8eaed";
+          el.style.background = "#111113";
+        }
+      }
+
+      await Promise.all(
+        [...document.images].map((img) =>
+          img.complete ? null : new Promise((r) => (img.onload = img.onerror = r)),
+        ),
+      );
+
+      // Shot 2: outline the part of the whole page that fits on screen and link it to the window.
+      const strip = document.getElementById("strip");
+      const full = strip.querySelector("img");
+      // Captures are 2x; work in CSS pixels of the 1280px-wide page.
+      const pageHeight = Math.round((full.naturalHeight * 1280) / full.naturalWidth);
+      const visibleShare =
+        Number(new URLSearchParams(location.search).get("viewport") ?? 760) / pageHeight;
+      const seen = document.getElementById("seen");
+      seen.style.height = `${full.clientHeight * visibleShare}px`;
+
+      const stage = strip.parentElement.getBoundingClientRect();
+      const page = document.querySelector("#small-browser .viewport").getBoundingClientRect();
+      const box = seen.getBoundingClientRect();
+      const x = (v) => v - stage.left;
+      const y = (v) => v - stage.top;
+      document.getElementById("connectors").innerHTML = [
+        [page.right, page.top, box.left, box.top],
+        [page.right, page.bottom, box.left, box.bottom],
+      ]
+        .map(
+          ([x1, y1, x2, y2]) =>
+            `<line x1="${x(x1)}" y1="${y(y1)}" x2="${x(x2)}" y2="${y(y2)}" stroke="#a996ff" stroke-width="2" stroke-dasharray="6 6" opacity="0.8"/>`,
+        )
+        .join("");
+      const label = document.createElement("span");
+      label.className = "badge";
+      label.textContent = `${pageHeight.toLocaleString("en-US")} px tall`;
+      strip.parentElement.append(label);
+      const stripBox = strip.getBoundingClientRect();
+      label.style.left = `${x(stripBox.left + stripBox.width / 2 - label.offsetWidth / 2)}px`;
+      label.style.top = `${y(stripBox.bottom) + 14}px`;
+
+      document.body.dataset.ready = "";
+    </script>
+  </body>
+</html>

@@ -3,7 +3,7 @@
     "message": "Web Shooter"
   },
   "extDescription": {
-    "message": "Screenshot the current tab straight to the clipboard with a hotkey."
+    "message": "Copy a screenshot of the visible area or the whole page straight to your clipboard with one hotkey."
   },
   "commandDescription": {
     "message": "Copy a screenshot of the visible page"

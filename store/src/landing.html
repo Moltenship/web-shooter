@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tidewater — Coastal forecasts</title>
+    <!-- Fictional site used as the page being captured in store screenshots. -->
+    <style>
+      :root {
+        --ink: #0b2530;
+        --muted: #4c6670;
+        --sea: #0e7c86;
+        --sea-dark: #075a63;
+        --foam: #e8f6f5;
+        --sand: #fbf7f0;
+        --line: #d9e6e6;
+        font:
+          16px/1.55 system-ui,
+          -apple-system,
+          sans-serif;
+        color: var(--ink);
+        background: #fff;
+        -webkit-font-smoothing: antialiased;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 46px;
+        padding: 0 22px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
+        color: #fff;
+        background: var(--sea);
+      }
+      .btn.ghost {
+        color: var(--ink);
+        background: #fff;
+        box-shadow: inset 0 0 0 1.5px var(--line);
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        height: 76px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 750;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+      }
+      .links {
+        display: flex;
+        gap: 28px;
+        flex: 1;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 500;
+      }
+      nav .btn {
+        height: 40px;
+        padding: 0 18px;
+        font-size: 14px;
+      }
+
+      .hero {
+        background: linear-gradient(180deg, var(--foam), #fff 85%);
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 56px;
+        align-items: center;
+        padding: 56px 0 88px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px 6px 6px;
+        border-radius: 999px;
+        background: #fff;
+        box-shadow: inset 0 0 0 1px var(--line);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--sea-dark);
+      }
+      .eyebrow b {
+        padding: 2px 8px;
+        border-radius: 999px;
+        color: #fff;
+        background: var(--sea);
+        font-size: 12px;
+      }
+      .hero h1 {
+        margin-top: 22px;
+        font-size: 62px;
+        line-height: 1.02;
+        letter-spacing: -0.045em;
+        font-weight: 760;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--sea);
+      }
+      .hero p.lead {
+        margin-top: 20px;
+        max-width: 470px;
+        font-size: 19px;
+        color: var(--muted);
+      }
+      .cta {
+        display: flex;
+        gap: 12px;
+        margin-top: 32px;
+      }
+      .rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 28px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .stars {
+        color: #f5a524;
+        letter-spacing: 2px;
+      }
+
+      .app {
+        padding: 24px;
+        border-radius: 28px;
+        background: #fff;
+        box-shadow:
+          0 1px 0 var(--line),
+          0 30px 60px -20px rgb(11 37 48 / 0.25),
+          0 0 0 1px var(--line);
+      }
+      .app-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+      }
+      .app-head small {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .app-head h3 {
+        font-size: 20px;
+        letter-spacing: -0.02em;
+      }
+      .temp {
+        font-size: 44px;
+        font-weight: 300;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+      }
+      .metric {
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: var(--foam);
+      }
+      .metric small {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .metric strong {
+        font-size: 18px;
+        letter-spacing: -0.01em;
+      }
+      .chart-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .hours {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        margin-top: 14px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .hours b {
+        display: block;
+        font-size: 14px;
+        color: var(--ink);
+      }
+
+      .press {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 0;
+        border-block: 1px solid var(--line);
+        color: #8aa0a6;
+        font-size: 21px;
+      }
+      .press span:nth-child(1) {
+        font-family: Georgia, serif;
+        font-style: italic;
+      }
+      .press span:nth-child(2) {
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        font-size: 16px;
+      }
+      .press span:nth-child(3) {
+        font-family: "Courier New", monospace;
+        font-weight: 700;
+      }
+      .press span:nth-child(4) {
+        font-family: Georgia, serif;
+        font-weight: 700;
+      }
+      .press span:nth-child(5) {
+        font-weight: 300;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-size: 16px;
+      }
+
+      section.block {
+        padding: 96px 0;
+      }
+      .section-head {
+        max-width: 620px;
+        margin-bottom: 48px;
+      }
+      .section-head small {
+        color: var(--sea);
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .section-head h2 {
+        margin-top: 10px;
+        font-size: 42px;
+        line-height: 1.1;
+        letter-spacing: -0.035em;
+      }
+      .section-head p {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 18px;
+      }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .feature {
+        padding: 28px;
+        border-radius: 22px;
+        background: var(--sand);
+      }
+      .feature .icon {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        color: #fff;
+        background: var(--sea);
+        margin-bottom: 18px;
+      }
+      .feature h3 {
+        font-size: 19px;
+        letter-spacing: -0.015em;
+      }
+      .feature p {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .stats {
+        color: #fff;
+        background: radial-gradient(circle at 80% 0%, #138f99, transparent 55%), var(--ink);
+      }
+      .stats .wrap {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        padding-block: 72px;
+      }
+      .stats strong {
+        display: block;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      .stats span {
+        color: #9cc4c8;
+      }
+
+      .quote {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 56px;
+        align-items: center;
+      }
+      .photo {
+        aspect-ratio: 4 / 3;
+        border-radius: 24px;
+        background:
+          linear-gradient(180deg, transparent 55%, rgb(7 90 99 / 0.55)),
+          radial-gradient(ellipse at 50% 120%, #0e7c86 30%, transparent 31%),
+          radial-gradient(ellipse at 20% 115%, #1aa3a8 35%, transparent 36%),
+          radial-gradient(circle at 75% 30%, #ffe2a8 8%, transparent 9%),
+          linear-gradient(180deg, #ffcf9a, #ffb38a 45%, #8fd3d1 46%, #3fa9ad);
+      }
+      blockquote {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        font-weight: 550;
+      }
+      .who {
+        margin-top: 24px;
+        color: var(--muted);
+      }
+      .who b {
+        color: var(--ink);
+      }
+
+      .pricing {
+        background: var(--sand);
+      }
+      .plans {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .plan {
+        padding: 32px;
+        border-radius: 24px;
+        background: #fff;
+        box-shadow: 0 0 0 1px var(--line);
+      }
+      .plan.featured {
+        color: #fff;
+        background: var(--sea-dark);
+        box-shadow: 0 30px 60px -24px rgb(7 90 99 / 0.6);
+      }
+      .plan h3 {
+        font-size: 18px;
+      }
+      .price {
+        margin: 14px 0 6px;
+        font-size: 46px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      .price small {
+        font-size: 16px;
+        font-weight: 500;
+        opacity: 0.7;
+      }
+      .plan ul {
+        margin: 22px 0 28px;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        font-size: 15px;
+      }
+      .plan li::before {
+        content: "✓  ";
+        color: var(--sea);
+        font-weight: 700;
+      }
+      .plan.featured li::before {
+        color: #7fe3dc;
+      }
+      .plan .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .plan.featured .btn {
+        color: var(--sea-dark);
+        background: #fff;
+      }
+
+      .faq {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px 40px;
+      }
+      .faq div {
+        padding: 22px 0;
+        border-top: 1px solid var(--line);
+      }
+      .faq h3 {
+        font-size: 17px;
+      }
+      .faq p {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .final {
+        margin: 0 40px 40px;
+        padding: 72px;
+        border-radius: 32px;
+        text-align: center;
+        color: #fff;
+        background: radial-gradient(circle at 20% 0%, #19a4ad, transparent 60%), var(--sea-dark);
+      }
+      .final h2 {
+        font-size: 44px;
+        letter-spacing: -0.035em;
+      }
+      .final p {
+        margin: 12px 0 28px;
+        color: #bfe6e6;
+        font-size: 18px;
+      }
+      .final .btn {
+        color: var(--sea-dark);
+        background: #fff;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 32px 0 48px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <div class="wrap">
+        <nav>
+          <div class="logo">
+            <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+              <rect width="32" height="32" rx="9" fill="#0e7c86" />
+              <path
+                d="M5 19c3 0 3-3 5.5-3s2.5 3 5.5 3 3-3 5.5-3 2.5 3 5.5 3M5 13c3 0 3-3 5.5-3s2.5 3 5.5 3 3-3 5.5-3 2.5 3 5.5 3"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2.4"
+                stroke-linecap="round"
+              />
+            </svg>
+            Tidewater
+          </div>
+          <div class="links">
+            <span>Forecasts</span><span>Tides</span><span>Spots</span><span>Pricing</span
+            ><span>Blog</span>
+          </div>
+          <a class="btn">Get the app</a>
+        </nav>
+
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow"><b>New</b> Swell alerts for your home break</span>
+            <h1>Know the ocean <em>before</em> you go.</h1>
+            <p class="lead">
+              Hour-by-hour swell, wind and tide forecasts for 14,000 beaches, built from buoy data
+              and tuned by local surfers.
+            </p>
+            <div class="cta">
+              <a class="btn">Start free trial</a>
+              <a class="btn ghost">See a forecast</a>
+            </div>
+            <div class="rating"><span class="stars">★★★★★</span> 4.9 from 38,000 reviews</div>
+          </div>
+
+          <div class="app">
+            <div class="app-head">
+              <div>
+                <small>Today · 7:40 AM</small>
+                <h3>Ocean Beach, SF</h3>
+              </div>
+              <div class="temp">62°</div>
+            </div>
+            <div class="metrics">
+              <div class="metric"><small>Swell</small><strong>4–6 ft</strong></div>
+              <div class="metric"><small>Wind</small><strong>8 kt NW</strong></div>
+              <div class="metric"><small>Water</small><strong>57°F</strong></div>
+            </div>
+            <div class="chart-label"><span>Tide</span><span>High 5.8 ft at 11:12</span></div>
+            <svg viewBox="0 0 400 110" width="100%" aria-hidden="true">
+              <defs>
+                <linearGradient id="tide" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#0e7c86" stop-opacity="0.35" />
+                  <stop offset="1" stop-color="#0e7c86" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M0 70 C40 30 80 20 120 35 S200 100 250 95 330 25 400 30 V110 H0Z"
+                fill="url(#tide)"
+              />
+              <path
+                d="M0 70 C40 30 80 20 120 35 S200 100 250 95 330 25 400 30"
+                fill="none"
+                stroke="#0e7c86"
+                stroke-width="3"
+              />
+              <circle cx="120" cy="35" r="6" fill="#fff" stroke="#0e7c86" stroke-width="3" />
+            </svg>
+            <div class="hours">
+              <span><b>4 ft</b>8 AM</span><span><b>5 ft</b>10 AM</span><span><b>6 ft</b>12 PM</span
+              ><span><b>5 ft</b>2 PM</span><span><b>4 ft</b>4 PM</span><span><b>3 ft</b>6 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="press">
+        <span>The Coastline</span><span>SURF DIGEST</span><span>outside/in</span
+        ><span>Harbor Weekly</span><span>Saltwater</span>
+      </div>
+    </div>
+
+    <section class="block">
+      <div class="wrap">
+        <div class="section-head">
+          <small>Why Tidewater</small>
+          <h2>Everything the sea is about to do, on one screen.</h2>
+          <p>No more juggling buoy charts, wind maps and tide tables before sunrise.</p>
+        </div>
+        <div class="features">
+          <div class="feature">
+            <div class="icon">≈</div>
+            <h3>Swell, decoded</h3>
+            <p>
+              Height, period and direction for every hour, in plain words: “clean, waist-high,
+              building after noon.”
+            </p>
+          </div>
+          <div class="feature">
+            <div class="icon">↗</div>
+            <h3>Wind that matters</h3>
+            <p>Offshore or onshore at your exact spot, not the airport twelve miles inland.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">◐</div>
+            <h3>Tides to the minute</h3>
+            <p>Highs, lows and the rate of change, so you know when the sandbar turns on.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">!</div>
+            <h3>Alerts you set once</h3>
+            <p>Tell us what a good day looks like. We'll text you when one is coming.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">◎</div>
+            <h3>Live cams</h3>
+            <p>Two thousand cameras on the beaches people actually surf, refreshed every minute.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">✎</div>
+            <h3>Session log</h3>
+            <p>Rate each session and Tidewater learns which conditions you love.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="wrap">
+        <div><strong>14,000</strong><span>beaches forecast</span></div>
+        <div><strong>2.4M</strong><span>sessions logged</span></div>
+        <div><strong>1,900</strong><span>buoys and stations</span></div>
+        <div><strong>6 h</strong><span>model refresh</span></div>
+      </div>
+    </div>
+
+    <section class="block">
+      <div class="wrap quote">
+        <div class="photo"></div>
+        <div>
+          <blockquote>
+            “I used to check four sites before dawn patrol. Now I glance at one chart and I'm in the
+            car.”
+          </blockquote>
+          <p class="who"><b>Dana Whitfield</b> · surfs Santa Cruz since 2004</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <small>Pricing</small>
+          <h2>Free for a weekend. Cheap for a lifetime.</h2>
+        </div>
+        <div class="plans">
+          <div class="plan">
+            <h3>Grom</h3>
+            <div class="price">$0</div>
+            <p>For the occasional session.</p>
+            <ul>
+              <li>3-day forecast</li>
+              <li>Tide tables</li>
+              <li>One favorite spot</li>
+            </ul>
+            <a class="btn ghost">Start free</a>
+          </div>
+          <div class="plan featured">
+            <h3>Local</h3>
+            <div class="price">$6<small> / month</small></div>
+            <p>For people who surf every week.</p>
+            <ul>
+              <li>16-day forecast</li>
+              <li>Swell alerts</li>
+              <li>Unlimited spots</li>
+              <li>Live cams, no ads</li>
+            </ul>
+            <a class="btn">Try 14 days free</a>
+          </div>
+          <div class="plan">
+            <h3>Crew</h3>
+            <div class="price">$15<small> / month</small></div>
+            <p>For surf schools and shops.</p>
+            <ul>
+              <li>Everything in Local</li>
+              <li>Up to 10 seats</li>
+              <li>Embeddable widgets</li>
+            </ul>
+            <a class="btn ghost">Talk to us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap">
+        <div class="section-head">
+          <small>FAQ</small>
+          <h2>Questions, answered.</h2>
+        </div>
+        <div class="faq">
+          <div>
+            <h3>Where does the data come from?</h3>
+            <p>
+              NOAA and national buoy networks, blended with our own wave model and local reports.
+            </p>
+          </div>
+          <div>
+            <h3>Does it work offline?</h3>
+            <p>
+              Your favorite spots are saved for 48 hours, so the forecast is there at the car park.
+            </p>
+          </div>
+          <div>
+            <h3>Can I cancel anytime?</h3>
+            <p>Yes. Cancel from settings and keep access until the end of the billing period.</p>
+          </div>
+          <div>
+            <h3>Is there a team plan?</h3>
+            <p>Crew covers up to ten people. For more, drop us a line and we'll sort it out.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="final">
+      <h2>Your next good day is already on the chart.</h2>
+      <p>Try Local free for 14 days. No card needed.</p>
+      <a class="btn">Get Tidewater</a>
+    </div>
+    <div class="wrap">
+      <footer>
+        <span>© 2026 Tidewater Labs</span>
+        <span>Privacy · Terms · Contact</span>
+      </footer>
+    </div>
+  </body>
+</html>

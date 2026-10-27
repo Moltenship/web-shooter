@@ -21,6 +21,7 @@ vp run build          # build into .output/chrome-mv3
 vp run zip            # zip for the Chrome Web Store
 vp check              # format + lint + type check
 vp test               # unit tests
+vp run store          # Chrome Web Store screenshots and promo tiles (after a build)
 ```
 
 ## Manual install
@@ -71,4 +72,9 @@ utils/
   settings.ts         settings in storage.sync
 public/_locales/en/   UI strings
 assets/icon.svg       icon source (@wxt-dev/auto-icons generates the PNGs)
+store/
+  listing.md          store description, permission justifications, privacy answers
+  render.ts           renders screenshots/ and promo/ from the real extension UI
+  src/                demo site and layouts for the store images
+PRIVACY.md            privacy policy linked from the store
 ```

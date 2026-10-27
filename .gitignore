@@ -33,3 +33,6 @@ dist-ssr
 .wxt
 stats.html
 web-ext.config.ts
+
+# Store screenshots: intermediate captures
+store/src/captures
